@@ -1,0 +1,17 @@
+{
+  "name": "@apexearth/layout-draw",
+  "version": "0.0.1",
+  "description": "Draw layouts using canvas.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "eslint . && mocha src/**/*.spec.js",
+    "prepublishOnly": "npm test"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@apexearth/layout": "0.1.0",
+    "canvas": "^1.6.7",
+    "chai": "^4.1.2"
+  }
+}
