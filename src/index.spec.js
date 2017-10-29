@@ -5,6 +5,8 @@ const draw     = require('./')
 const {expect} = require('chai')
 const fs       = require('fs')
 
+fs.mkdirSync('test/')
+
 const saveNewImages = true
 
 describe('layout-draw', function () {
@@ -193,7 +195,7 @@ function check(canvas, name, done) {
 
 function checkFile(canvas, name, done) {
     let stream   = canvas.pngStream()
-    let expected = fs.readFileSync(__dirname + `/../test/${name}.png`)
+    let expected = fs.readFileSync(`test/${name}.png`)
     let index    = 0
     stream.on('data', chunk => {
         for (let i = 0; i < chunk.length; i++) {
@@ -207,7 +209,7 @@ function checkFile(canvas, name, done) {
 
 function savePng(canvas, name, done) {
     console.log(name)
-    let out    = fs.createWriteStream(__dirname + `/../test/${name}.png`)
+    let out    = fs.createWriteStream(`test/${name}.png`)
     let stream = canvas.pngStream()
 
     stream.on('error', done)
