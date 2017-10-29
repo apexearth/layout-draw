@@ -3,18 +3,14 @@ require('./test.setup')
 const Layout   = require('@apexearth/layout')
 const draw     = require('./')
 const {expect} = require('chai')
-describe('layout-draw', function () {
-    function drawShip(ship) {
-        return draw(ship, {
-            before: (block, context) => {
-                context.fillStyle   = block.sections[0].data.fillStyle || 'rgb(100,100,100)'
-                context.strokeStyle = block.sections[0].data.strokeStyle || 'rgba(0,0,0,0)'
-                context.lineWidth   = block.sections[0].data.lineWidth || 1
-            }
-        })
-    }
+const fs       = require('fs')
 
-    it('draw() default', function (done) {
+const saveNewImages = true
+
+describe('layout-draw', function () {
+
+
+    it('default', function (done) {
         let ship    = new Layout()
         let cockpit = ship.addSection(0, 0, 0, 0, 'cockpit')
         let walkway = cockpit.addBottom({
@@ -60,15 +56,12 @@ describe('layout-draw', function () {
             width: 1, height: 2, name: 'shield'
         })
 
+
         let canvas = drawShip(ship)
-        canvas.toDataURL('image/png', function (err, png) {
-            if (err) return done(err)
-            expect(png).to.equal('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAABQCAYAAACTb8w2AAAABmJLR0QA/wD/AP+gvaeTAAAAnklEQVRoge3aMQqAMAxAUSMetcfqXXWXfAi2SIb/Rgf9ZCglGMeCMcb9fjbnjK/vO1didjOGGEOMIcaQ8mmZnbZV1VO51WSMIcYQY4gx5Np9j63KvttqMsYQY4gxxBgSK3fb3VpNxhhiDDGGGEOMIcYQY4gxxBhiDDGGGEOMIcaQdN/7x2Yi2zW3mowxxBhiDDGG+C8EMYYYQ4whxpAHgbwY9DgES08AAAAASUVORK5CYII=')
-            done()
-        })
+        check(canvas, this.test.title, done)
     })
 
-    it('draw() add color', function (done) {
+    it('add color', function (done) {
         let ship    = new Layout()
         let cockpit = ship.addSection(0, 0, 0, 0, 'cockpit')
         let walkway = cockpit.addBottom({
@@ -118,14 +111,10 @@ describe('layout-draw', function () {
         enginer.data.fillStyle = 'rgb(100,100,255)'
 
         let canvas = drawShip(ship)
-        canvas.toDataURL('image/png', function (err, png) {
-            if (err) return done(err)
-            expect(png).to.equal('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAABQCAYAAACTb8w2AAAABmJLR0QA/wD/AP+gvaeTAAAAuElEQVRoge3aQQrCMBBAUSM5ajyVuWvd63wYnSCz+G9ZSvOZRQgl41aw1rren+29x6/fu1diTjOGGEOMIcaQ9G4Z7bZZ2V251WSMIcYQY4gxZJ4+x2ZF67aajDHEGGIMMYaMytn2tFaTMYYYQ4whxhBjiDHEGGIMMYbM/KvP4Nmj8N6nVpMxhhhDjCHGkBn98/3Hn4lo3VaTMYYYQ4whxpAv7kJcwa6cOwPvPbwLUWIMMYYYQ1rFvADLUh3ORqG/mwAAAABJRU5ErkJggg==')
-            done()
-        })
+        check(canvas, this.test.title, done)
     })
 
-    it('draw() add more color', function (done) {
+    it('add more color', function (done) {
         let ship    = new Layout()
         let cockpit = ship.addSection(0, 0, 0, 0, 'cockpit')
         let walkway = cockpit.addBottom({
@@ -176,10 +165,59 @@ describe('layout-draw', function () {
         })
 
         let canvas = drawShip(ship)
-        canvas.toDataURL('image/png', function (err, png) {
-            if (err) return done(err)
-            expect(png).to.equal('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAABQCAYAAACTb8w2AAAABmJLR0QA/wD/AP+gvaeTAAABWklEQVRoge2asW2FMBRFn6OIzjRQ0v8xSAb4TEEmYJywBQMka9DT0sQVFemQgHcVxyZfjnRPxxO2j4x19WRhJIK2bddjre97EzrfU4zM1VAGQRkEZRBJyQQH1LquL8MwfBzr9/v91Rjz+acyx7Rtmkbquhbn3Faz1krXdaexvqn87Cuj4ZyTaZq256qqYqZL68xQBkEZBGUQwTlTFIWUZSl5nm+1LMviZGL62GVZTgnsi7Zu8M7M88wEfhiUQVAGkZRMWgmsFbV01PBNYN/5mMAIyiAog6AMIv0E9iWmB75Uhgn8SCiDoAwiKZn/msDvp8qyfCkJfH5P5O1qmT3zjO6BczzoB5I6M5RBUAZBGURU22mt3XV3sW2net+r3xrsk/V2ExlHLVn9Eli7aw7+TOMYOhKT1JmhDIIyCMogkpL5xb8Qq5LKfgnc98ZrnaR2hjIIyiAog6AM4hsADXQLV9TxQwAAAABJRU5ErkJggg==')
-            done()
-        })
+        check(canvas, this.test.title, done)
     })
 })
+
+function drawShip(ship) {
+    return draw(ship, {
+        scaleX: 5,
+        scaleY: 10,
+        before: (block, context) => {
+            context.fillStyle   = block.sections[0].data.fillStyle || 'rgb(100,100,100)'
+            context.strokeStyle = block.sections[0].data.strokeStyle || 'rgba(0,0,0,0)'
+            context.lineWidth   = block.sections[0].data.lineWidth || 1
+        }
+    })
+}
+
+function check(canvas, name, done) {
+    if (saveNewImages) {
+        savePng(canvas, name, () => {
+            checkFile(canvas, name, done)
+        })
+    } else {
+        checkFile(canvas, name, done)
+    }
+}
+
+function checkFile(canvas, name, done) {
+    let stream   = canvas.pngStream()
+    let expected = fs.readFileSync(__dirname + `/../test/${name}.png`)
+    let index    = 0
+    stream.on('data', chunk => {
+        for (let i = 0; i < chunk.length; i++) {
+            if (expected[index++] !== chunk[i]) {
+                throw new Error(`${name} does not match at ${index} ${expected[index]} !== ${chunk[i]}`)
+            }
+        }
+    })
+    stream.on('end', done)
+}
+
+function savePng(canvas, name, done) {
+    console.log(name)
+    let out    = fs.createWriteStream(__dirname + `/../test/${name}.png`)
+    let stream = canvas.pngStream()
+
+    stream.on('error', done)
+
+    stream.on('data', function (chunk) {
+        out.write(chunk)
+    })
+
+    stream.on('end', function () {
+        out.end()
+        setTimeout(done, 100)
+    })
+}

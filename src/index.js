@@ -2,7 +2,7 @@ let {create} = require('./canvas')
 
 module.exports = (layout, {
     scaleX = 5,
-    scaleY = 10,
+    scaleY = 5,
     before, after
 } = {}) => {
     let canvas = create(layout.width * scaleX, layout.height * scaleY)
