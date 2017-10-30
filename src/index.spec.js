@@ -5,12 +5,12 @@ const draw     = require('./')
 const {expect} = require('chai')
 const fs       = require('fs')
 
-fs.mkdirSync('test/')
-
 const saveNewImages = true
 
 describe('layout-draw', function () {
-
+    before(done => {
+        fs.mkdir('test/', err => done())
+    })
 
     it('default', function (done) {
         let ship    = new Layout()
@@ -175,10 +175,10 @@ function drawShip(ship) {
     return draw(ship, {
         scaleX: 5,
         scaleY: 10,
-        before: (block, context) => {
-            context.fillStyle   = block.sections[0].data.fillStyle || 'rgb(100,100,100)'
-            context.strokeStyle = block.sections[0].data.strokeStyle || 'rgba(0,0,0,0)'
-            context.lineWidth   = block.sections[0].data.lineWidth || 1
+        before: (section, context) => {
+            context.fillStyle   = section.data.fillStyle || 'rgb(100,100,100)'
+            context.strokeStyle = section.data.strokeStyle || 'rgba(0,0,0,0)'
+            context.lineWidth   = section.data.lineWidth || .5
         }
     })
 }

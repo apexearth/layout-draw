@@ -7,22 +7,18 @@ module.exports = (layout, {
 } = {}) => {
     let canvas = create(layout.width * scaleX, layout.height * scaleY)
     let ctx    = canvas.getContext('2d')
-    layout.forEachSquare(square => {
+    layout.sections.forEach(section => {
         ctx.fillStyle = 'rgba(75,75,75,.75)'
-        if (before) before(square, ctx)
-        ctx.fillRect(
-            -layout.bounds.left * scaleX + square.x * scaleX,
-            -layout.bounds.top * scaleY + square.y * scaleY,
-            scaleX,
-            scaleY
-        )
-        ctx.strokeRect(
-            -layout.bounds.left * scaleX + square.x * scaleX,
-            -layout.bounds.top * scaleY + square.y * scaleY,
-            scaleX,
-            scaleY
-        )
-        if (after) after(square, ctx)
+        if (before) before(section, ctx)
+        const rect = {
+            x     : -layout.bounds.left * scaleX + section.left * scaleX,
+            y     : -layout.bounds.top * scaleY + section.top * scaleY,
+            width : section.width * scaleX,
+            height: section.height * scaleY
+        }
+        ctx.fillRect(rect.x, rect.y, rect.width, rect.height)
+        ctx.strokeRect(rect.x, rect.y, rect.width, rect.height)
+        if (after) after(section, ctx)
     })
     return canvas
 }
