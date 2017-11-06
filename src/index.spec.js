@@ -179,6 +179,10 @@ function drawShip(ship) {
             context.fillStyle   = section.data.fillStyle || 'rgb(100,100,100)'
             context.strokeStyle = section.data.strokeStyle || 'rgba(0,0,0,0)'
             context.lineWidth   = section.data.lineWidth || .5
+        },
+        after : (section, context) => {
+            expect(section).to.exist
+            expect(context).to.exist
         }
     })
 }

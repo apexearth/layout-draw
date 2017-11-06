@@ -4,7 +4,7 @@
   "description": "Draw layouts using canvas.",
   "main": "src/index.js",
   "scripts": {
-    "test": "eslint . && mocha src/**/*.spec.js",
+    "test": "eslint . && nyc mocha src/**/*.spec.js",
     "prepublishOnly": "npm test"
   },
   "author": {
@@ -29,10 +29,11 @@
     }
   },
   "devDependencies": {
+    "canvas": "^1.6.7",
     "chai": "^4.1.2",
     "eslint": "^4.10.0",
     "mocha": "^4.0.1",
-    "canvas": "^1.6.7"
+    "nyc": "^11.3.0"
   },
   "dependencies": {
     "@apexearth/layout": "^0.2.0"
