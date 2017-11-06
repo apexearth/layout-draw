@@ -36,6 +36,6 @@
     "nyc": "^11.3.0"
   },
   "dependencies": {
-    "@apexearth/layout": "^0.2.0"
+    "@apexearth/layout": "^0.4.2"
   }
 }

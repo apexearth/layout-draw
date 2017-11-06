@@ -37,7 +37,7 @@ describe('layout-draw', function () {
             width: 2, height: 2, shift: 2, name: 'generator'
         })
         generatorl.addLeft({
-            width: 1, height: 2, shift: -1, name: 'laser'
+            width: 1, height: 2, shift: -1, name: 'laser', corner: 'top-left'
         })
         generatorl.addLeft({
             width: 1, height: 2, shift: 1, name: 'shield'
@@ -46,7 +46,7 @@ describe('layout-draw', function () {
             width: 2, height: 2, shift: 2, name: 'generator'
         })
         generatorr.addRight({
-            width: 1, height: 2, shift: -1, name: 'laser'
+            width: 1, height: 2, shift: -1, name: 'laser', corner: 'top-right'
         })
         generatorr.addRight({
             width: 1, height: 2, shift: 1, name: 'shield'
@@ -88,7 +88,7 @@ describe('layout-draw', function () {
             width: 2, height: 2, shift: 2, name: 'generator'
         })
         generatorl.addLeft({
-            width: 1, height: 2, shift: -1, name: 'laser'
+            width: 1, height: 2, shift: -1, name: 'laser', corner: 'top-left'
         })
         generatorl.addLeft({
             width: 1, height: 2, shift: 1, name: 'shield'
@@ -97,7 +97,7 @@ describe('layout-draw', function () {
             width: 2, height: 2, shift: 2, name: 'generator'
         })
         generatorr.addRight({
-            width: 1, height: 2, shift: -1, name: 'laser'
+            width: 1, height: 2, shift: -1, name: 'laser', corner: 'top-right'
         })
         generatorr.addRight({
             width: 1, height: 2, shift: 1, name: 'shield'
@@ -145,7 +145,7 @@ describe('layout-draw', function () {
             width: 2, height: 2, shift: 2, name: 'generator'
         })
         generatorl.addLeft({
-            width: 1, height: 2, shift: -1, name: 'laser'
+            width: 1, height: 2, shift: -1, name: 'laser', corner: 'top-left'
         })
         generatorl.addLeft({
             width: 1, height: 2, shift: 1, name: 'shield'
@@ -154,7 +154,7 @@ describe('layout-draw', function () {
             width: 2, height: 2, shift: 2, name: 'generator'
         })
         generatorr.addRight({
-            width: 1, height: 2, shift: -1, name: 'laser'
+            width: 1, height: 2, shift: -1, name: 'laser', corner: 'top-right'
         })
         generatorr.addRight({
             width: 1, height: 2, shift: 1, name: 'shield'

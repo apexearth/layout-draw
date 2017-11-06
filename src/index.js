@@ -16,8 +16,41 @@ module.exports = (layout, {
             width : section.width * scaleX,
             height: section.height * scaleY
         }
-        ctx.fillRect(rect.x, rect.y, rect.width, rect.height)
-        ctx.strokeRect(rect.x, rect.y, rect.width, rect.height)
+        console.log(rect)
+        console.log(section.corner)
+        switch (section.corner) {
+            case 'top-left':
+                ctx.moveTo(rect.x + rect.width, rect.y) // Top-right
+                ctx.lineTo(rect.x, rect.y + rect.height) // Bottom-left
+                ctx.lineTo(rect.x + rect.width, rect.y + rect.height) // Bottom-right
+                ctx.fill()
+                ctx.stroke()
+                break
+            case 'top-right':
+                ctx.moveTo(rect.x, rect.y) // Top-left
+                ctx.lineTo(rect.x, rect.y + rect.height) // Bottom-left
+                ctx.lineTo(rect.x + rect.width, rect.y + rect.height) //Bottom-right
+                ctx.fill()
+                ctx.stroke()
+                break
+            case 'bottom-left':
+                ctx.moveTo(rect.x, rect.y) // Top-left
+                ctx.lineTo(rect.x + rect.width, rect.y) // Top-right
+                ctx.lineTo(rect.x + rect.width, rect.y + rect.height) // Bottom-right
+                ctx.fill()
+                ctx.stroke()
+                break
+            case 'bottom-right':
+                ctx.moveTo(rect.x + rect.width, rect.y) // Top-right
+                ctx.lineTo(rect.x, rect.y + rect.height) // Bottom-left
+                ctx.lineTo(rect.x, rect.y) // Top-left
+                ctx.fill()
+                ctx.stroke()
+                break
+            default:
+                ctx.fillRect(rect.x, rect.y, rect.width, rect.height)
+                ctx.strokeRect(rect.x, rect.y, rect.width, rect.height)
+        }
         if (after) after(section, ctx)
     })
     return canvas
