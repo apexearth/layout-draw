@@ -16,8 +16,6 @@ module.exports = (layout, {
             width : section.width * scaleX,
             height: section.height * scaleY
         }
-        console.log(rect)
-        console.log(section.corner)
         switch (section.corner) {
             case 'top-left':
                 ctx.moveTo(rect.x + rect.width, rect.y) // Top-right
