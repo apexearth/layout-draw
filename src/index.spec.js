@@ -5,7 +5,7 @@ const draw     = require('./')
 const {expect} = require('chai')
 const fs       = require('fs')
 
-const saveNewImages = true
+const saveNewImages = process.env.SAVE_IMAGES !== undefined
 
 describe('layout-draw', function () {
     before(done => {
@@ -169,12 +169,60 @@ describe('layout-draw', function () {
         let canvas = drawShip(ship)
         check(canvas, this.test.title, done)
     })
+
+    it('diamond', function (done) {
+        let diamond = new Layout()
+        diamond.addSection(0, 0, 0, 0, 'top-left', {}, 'top-left')
+        diamond.addSection(1, 0, 1, 0, 'top-right', {}, 'top-right')
+        diamond.addSection(0, 1, 0, 1, 'bottom-left', {}, 'bottom-left')
+        diamond.addSection(1, 1, 1, 1, 'bottom-right', {}, 'bottom-right')
+        let canvas = drawShip(diamond, 20, 20)
+        check(canvas, this.test.title, done)
+    })
+
+    it('bad usages', function () {
+        expect(() => {
+            draw()
+        }).to.throw()
+        expect(() => {
+            let layout = new Layout()
+            layout.addSection(0, 0, 0, 0)
+            draw(layout, {
+                scaleX: "what"
+            })
+        }).to.throw()
+        expect(() => {
+            let layout = new Layout()
+            layout.addSection(0, 0, 0, 0)
+            draw(layout, {
+                scaleY: "what"
+            })
+        }).to.throw()
+        expect(() => {
+            let layout = new Layout()
+            layout.addSection(0, 0, 0, 0)
+            draw(layout, {
+                before: "what"
+            })
+        }).to.throw()
+        expect(() => {
+            let layout = new Layout()
+            layout.addSection(0, 0, 0, 0)
+            draw(layout, {
+                after: "what"
+            })
+        }).to.throw()
+
+        let layout = new Layout()
+        layout.addSection(0, 0, 0, 0)
+        draw(layout)
+    })
 })
 
-function drawShip(ship) {
+function drawShip(ship, scaleX = 5, scaleY = 10) {
     return draw(ship, {
-        scaleX: 5,
-        scaleY: 10,
+        scaleX,
+        scaleY,
         before: (section, context) => {
             context.fillStyle   = section.data.fillStyle || 'rgb(100,100,100)'
             context.strokeStyle = section.data.strokeStyle || 'rgba(0,0,0,0)'
