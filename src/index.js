@@ -4,7 +4,8 @@ module.exports = (layout, {
     canvas,
     scaleX = 5,
     scaleY = 5,
-    before, after
+    width, height,
+    before, after,
 } = {}) => {
     if (typeof scaleX !== 'number') throw new Error(`scaleX must be a number`)
     if (typeof scaleY !== 'number') throw new Error(`scaleY must be a number`)
@@ -12,16 +13,21 @@ module.exports = (layout, {
     if (after && typeof after !== 'function') throw new Error(`after must be a function`)
 
     canvas        = canvas || create()
-    canvas.width  = layout.width * scaleX
-    canvas.height = layout.height * scaleY
+    canvas.width  = (width || layout.width) * scaleX
+    canvas.height = (height || layout.height) * scaleY
+
+    let offset = {
+        x: (width ? width - layout.width : 0) * scaleX,
+        y: (height ? height - layout.height : 0) * scaleY
+    }
 
     let ctx = canvas.getContext('2d')
     layout.sections.forEach(section => {
         ctx.fillStyle = 'rgba(75,75,75,.75)'
         if (before) before(section, ctx)
         const rect = {
-            x     : -layout.bounds.left * scaleX + section.left * scaleX,
-            y     : -layout.bounds.top * scaleY + section.top * scaleY,
+            x     : offset.x - layout.bounds.left * scaleX + section.left * scaleX,
+            y     : offset.y - layout.bounds.top * scaleY + section.top * scaleY,
             width : section.width * scaleX,
             height: section.height * scaleY
         }

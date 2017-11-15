@@ -176,7 +176,14 @@ describe('layout-draw', function () {
         diamond.addSection(1, 0, 1, 0, 'top-right', {}, 'top-right')
         diamond.addSection(0, 1, 0, 1, 'bottom-left', {}, 'bottom-left')
         diamond.addSection(1, 1, 1, 1, 'bottom-right', {}, 'bottom-right')
-        let canvas = drawShip(diamond, 20, 20)
+        let canvas = drawShip(diamond, {scaleX: 20, scaleY: 20})
+        check(canvas, this.test.title, done)
+    })
+
+    it('width and height options', function (done) {
+        let noshrink = new Layout()
+        noshrink.addSection(0, 2, 0, 2)
+        let canvas = drawShip(noshrink, {scaleX: 20, scaleY: 20, width: 3, height: 3})
         check(canvas, this.test.title, done)
     })
 
@@ -219,10 +226,10 @@ describe('layout-draw', function () {
     })
 })
 
-function drawShip(ship, scaleX = 5, scaleY = 10) {
+function drawShip(ship, {scaleX = 5, scaleY = 10, width, height} = {}) {
     return draw(ship, {
-        scaleX,
-        scaleY,
+        scaleX, scaleY,
+        width, height,
         before: (section, context) => {
             context.fillStyle   = section.data.fillStyle || 'rgb(100,100,100)'
             context.strokeStyle = section.data.strokeStyle || 'rgba(0,0,0,0)'
