@@ -1,4 +1,4 @@
-let {create} = require('./canvas')
+let Canvas = require('./canvas')
 
 module.exports = (layout, {
     canvas,
@@ -12,7 +12,7 @@ module.exports = (layout, {
     if (before && typeof before !== 'function') throw new Error(`before must be a function`)
     if (after && typeof after !== 'function') throw new Error(`after must be a function`)
 
-    canvas        = canvas || create()
+    canvas        = canvas || Canvas.create()
     canvas.width  = (width || layout.width) * scaleX
     canvas.height = (height || layout.height) * scaleY
 
