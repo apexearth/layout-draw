@@ -6,13 +6,21 @@ script:
 addons:
   apt:
     sources:
-      - ubuntu-toolchain-r-test
+    - ubuntu-toolchain-r-test
     packages:
-      - libcairo2-dev
-      - libjpeg8-dev
-      - libpango1.0-dev
-      - libgif-dev
-      - g++-4.9
+    - libcairo2-dev
+    - libjpeg8-dev
+    - libpango1.0-dev
+    - libgif-dev
+    - g++-4.9
 env:
-  - CXX=g++-4.9
+- CXX=g++-4.9
 sudo: false
+deploy:
+  provider: npm
+  email: apexearth@gmail.com
+  api_key:
+    secure: SiCwyTfE/3/G/y5CPo8+HXa20wd0hzUkWwed9eIVzej5UJg47KonnzYzNUIaeyyGpUF1lIgnzXyzDuZYaZ+KStsfOhSovfUOSW6RALvEs8+LXoZVyzaDLOLnCg8xe/FKiSDfY3h8nL/WOOO+Xsy0Dp1njQhDvzlAZI402Pmdb8ZLWs6BaHCC0eIXyKtgT79Qtwsej2CPsSYnSoFwiKmNP88eJYgmHQaVmb+0VR/tea0r0wS+24fKUTdeLzBmir5C9TzLn4ooe0VzcQ3AAg5Y+60Yg5KpcU05zYp4cf9MASBQpxbrTaee+88oEWsCYGPQUcVjm5OG9Ctj7yAirui8iNr8fn++NLJuF5Iu/OpG/EW51u0uYQJYHWYb+plDSvQoUxi1uaQCPhmFgqy3j9zRzzJxkTvTr3Hos3w/9CEEU+a6rzGjBJTzGu8noBX3sV7ee3AiNhMloQFTf8gNKRCaUyxISRPOC/I/JDQznDUJMeJkjbPpT+RjHDlEGYVY3ShmhMRcxGVPTbYBlHxujvYBE2BoHJFx/JWfPNmUFX17BfWoD1xKXnaz6aSIlL5Wq1NszHAIeI64wk0NRaf/FVegjmzsa99jEVx0Xa5oNGOMk+M4smRooFxfsELY1YmO6ga5iLznzfH24wDcVDPgIG39XLqSKkH8U2teC/DQI0TgBnY=
+  on:
+    tags: true
+    repo: apexearth/layout-draw
