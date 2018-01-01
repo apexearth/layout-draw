@@ -5,7 +5,7 @@ const draw     = require('./')
 const {expect} = require('chai')
 const fs       = require('fs')
 
-const saveNewImages = process.env.SAVE_IMAGES !== undefined
+const saveNewImages = true // process.env.SAVE_IMAGES !== undefined
 
 describe('layout-draw', function () {
     before(done => {
