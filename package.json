@@ -4,8 +4,7 @@
   "description": "Draw layouts using canvas.",
   "main": "src/index.js",
   "scripts": {
-    "test": "eslint . && nyc mocha src/**/*.spec.js",
-    "prepublishOnly": "npm test"
+    "test": "eslint . && nyc mocha src/**/*.spec.js"
   },
   "author": {
     "name": "Christopher Jacobs",
