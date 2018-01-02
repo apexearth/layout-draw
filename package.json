@@ -1,6 +1,6 @@
 {
   "name": "@apexearth/layout-draw",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Draw layouts using canvas.",
   "main": "src/index.js",
   "scripts": {
@@ -34,5 +34,8 @@
     "mocha": "^4.0.1",
     "nyc": "^11.3.0",
     "@apexearth/layout": "^0.4.4"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
